@@ -30,6 +30,7 @@ form = document.addEventListener("submit", function (event) {
   }
 
   postThread.push(blog);
+  showBlog();
 
   title.value = "";
   field.value = "";
@@ -58,10 +59,14 @@ field.addEventListener("input", function () {
 });
 
 function showBlog(){
-    postThread.innerHtml = ""
+    posts.innerHTML = ""
 
     for(let i = 0; i < postThread.length; i++){
-        let posts = document.createElement("li")
+        let blogs = document.createElement("li");
+
+        blogs.innerText = `${postThread[i].titleInput} \n \n ${postThread[i].fieldInput}` 
+         posts.appendChild(blogs)
 
     }
+
 }
