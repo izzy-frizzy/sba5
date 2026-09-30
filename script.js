@@ -12,7 +12,7 @@ let postThread = [];
 title.value = localStorage.getItem("title") || "";
 field.value = localStorage.getItem("input") || "";
 
-form = document.addEventListener("submit", function (event) {
+form.addEventListener("submit", function (event) {
   event.preventDefault();
   let titleInput = title.value;
   let fieldInput = field.value;
@@ -36,6 +36,13 @@ form = document.addEventListener("submit", function (event) {
   field.value = "";
 });
 
+// form.addEventListener("click", function(event){
+//     if(event.target.innerHTML.includes("delete")){
+
+//     }
+
+// })
+
 title.addEventListener("input", function () {
   localStorage.setItem("title", title.value);
   if (!title.validity.valid) {
@@ -58,15 +65,25 @@ field.addEventListener("input", function () {
   }
 });
 
-function showBlog(){
-    posts.innerHTML = ""
+function showBlog() {
+  posts.innerHTML = "";
 
-    for(let i = 0; i < postThread.length; i++){
-        let blogs = document.createElement("li");
+  for (let i = 0; i < postThread.length; i++) {
+    let blogs = document.createElement("li");
 
-        blogs.innerText = `${postThread[i].titleInput} \n \n ${postThread[i].fieldInput}` 
-         posts.appendChild(blogs)
+    blogs.innerText = `${postThread[i].titleInput} \n \n ${postThread[i].fieldInput}`;
 
-    }
+    //delete button
+    let deleteButton = document.createElement("button");
+    deleteButton.type = "button";
+    deleteButton.innerText = "delete";
+    blogs.append(deleteButton);
+    //edit button
+    let editButton = document.createElement("button");
+    editButton.type = "button";
+    editButton.innerText = "edit";
+    blogs.append(editButton);
 
+    posts.appendChild(blogs);
+  }
 }
