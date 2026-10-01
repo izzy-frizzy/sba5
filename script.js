@@ -36,12 +36,25 @@ form.addEventListener("submit", function (event) {
   field.value = "";
 });
 
-// form.addEventListener("click", function(event){
-//     if(event.target.innerHTML.includes("delete")){
+posts.addEventListener("click", function (event) {
+  if (event.target.innerHTML.includes("delete")) {
+    let item = event.target.closest("li");
+    let index = parseFloat(item.dataset.index);
 
-//     }
+    postThread.splice(index, 1);
+    showBlog();
+  } else if (event.target.innerHTML.includes("edit")) {
+    let item = event.target.closest("li");
+    let index = parseFloat(item.dataset.index);
 
-// })
+    title.value = postThread[index].titleInput;
+    field.value = postThread[index].fieldInput;
+
+    postThread.splice(index, 1);
+
+    showBlog();
+  }
+});
 
 title.addEventListener("input", function () {
   localStorage.setItem("title", title.value);
@@ -71,8 +84,9 @@ function showBlog() {
   for (let i = 0; i < postThread.length; i++) {
     let blogs = document.createElement("li");
 
-    blogs.innerText = `${postThread[i].titleInput} \n \n ${postThread[i].fieldInput}`;
+    blogs.innerText = `${postThread[i].titleInput} \n \n ${postThread[i].fieldInput} \n`;
 
+    blogs.dataset.index = i;
     //delete button
     let deleteButton = document.createElement("button");
     deleteButton.type = "button";
